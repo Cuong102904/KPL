@@ -46,7 +46,7 @@ Token* getToken(void)
               state =7; 
             break;
           case CHAR_PLUS:
-              state =12;
+              state =9;
             break;
           case CHAR_MINUS:
               state =10;
@@ -201,7 +201,7 @@ Token* getToken(void)
         return getToken();
     case 14:
       readChar();
-      return makeToken(SB_LE, lineNo, colNo-1);
+      return makeToken(SB_LE, lineNo, colNo-2);
     case 15:
       return makeToken(SB_LT, lineNo, colNo-1);
     case 16:
@@ -212,7 +212,7 @@ Token* getToken(void)
     case 17:
     //TODO 
       readChar();
-      return makeToken(SB_GE, lineNo, colNo-1);
+      return makeToken(SB_GE, lineNo, colNo-2);
     case 18:
     //TODO 
       return makeToken(SB_GT, lineNo, colNo-1);
@@ -225,7 +225,7 @@ Token* getToken(void)
     //TODO 
       token = makeToken(SB_NEQ, lineNo, colNo-1);
       readChar();
-      if (currentChar == '=') state = 21; else state = 22;
+      if (currentChar == CHAR_EQ) state = 21; else state = 22;
       return getToken();
     case 21:
       readChar();
@@ -453,7 +453,7 @@ int scan(char *fileName) {
 int main()
 {
 
-if (scan("test/example3.kpl") == IO_ERROR) {
+if (scan("test/example1.kpl") == IO_ERROR) {
    printf("Can\'t read input file!\n");
       }
 return 0;
