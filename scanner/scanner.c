@@ -46,7 +46,7 @@ Token* getToken(void)
               state =7; 
             break;
           case CHAR_PLUS:
-              state =12;
+              state =9;
             break;
           case CHAR_MINUS:
               state =10;
@@ -218,25 +218,25 @@ Token* getToken(void)
       return makeToken(SB_GT, lineNo, colNo-1);
     case 19:
     //TODO 
-      token = makeToken(SB_EQ, lineNo, colNo-1);
+      token = makeToken(SB_EQ, lineNo, colNo);
       readChar();
       return token;
     case 20:
     //TODO 
-      token = makeToken(SB_NEQ, lineNo, colNo-1);
+      token = makeToken(SB_NEQ, lineNo, colNo-2);
       readChar();
       if (currentChar == '=') state = 21; else state = 22;
       return getToken();
     case 21:
       readChar();
-      return makeToken(SB_NEQ, lineNo, colNo-1);
+      return makeToken(SB_NEQ, lineNo, colNo-2);
     case 22:
       token = makeToken(TK_NONE, lineNo, colNo-1);
       error(ERR_INVALIDSYMBOL, token->lineNo, token->colNo);
       return token;
     case 23:
     //TODO 
-     token = makeToken(SB_COMMA, lineNo, colNo-1);
+     token = makeToken(SB_COMMA, lineNo, colNo);
       readChar();
       return token;
     case 24: 
@@ -293,7 +293,7 @@ Token* getToken(void)
         state =34;
         return getToken();
     case 33:
-      token = makeToken(TK_CHAR, lineNo, colNo-1);
+      token = makeToken(TK_CHAR, lineNo, colNo-2);
       token->string[0] =c;
       token->string[1] ='\0';
       readChar();
@@ -350,7 +350,7 @@ Token* getToken(void)
       return makeToken(SB_LPAR, ln, cn);
     case 42:
       readChar();
-      return makeToken(SB_RPAR, lineNo, colNo);
+      return makeToken(SB_RPAR, lineNo, colNo-1);
     case 43:
       token = makeToken(TK_NONE, lineNo, colNo);
       error(ERR_INVALIDSYMBOL, lineNo, colNo);
@@ -436,7 +436,7 @@ int scan(char *fileName) {
 
 /******************************************************************/
 
-/*int main(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
   if (argc <= 1) {
     printf("scanner: no input file.\n");
     return -1;
@@ -448,16 +448,16 @@ int scan(char *fileName) {
   }
 
   return 0;
-}*/
-
-int main()
-{
-
-if (scan("test/example3.kpl") == IO_ERROR) {
-   printf("Can\'t read input file!\n");
-      }
-return 0;
-
 }
+
+// int main()
+// {
+
+// if (scan("test/example1.kpl") == IO_ERROR) {
+//    printf("Can\'t read input file!\n");
+//       }
+// return 0;
+
+// }
 
 
